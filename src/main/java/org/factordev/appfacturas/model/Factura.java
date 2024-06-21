@@ -21,7 +21,6 @@ public class Factura {
     }
 
 
-
     public void setFolio(int folio) {
         this.folio = folio;
     }
@@ -54,11 +53,36 @@ public class Factura {
         return items;
     }
 
-    public void addItem(ItemFactura item){
-        if(indiceItems < MAX_ITEMS){
+    public void addItem(ItemFactura item) {
+        if (indiceItems < MAX_ITEMS) {
             this.items[indiceItems++] = item;
         }
-        this.items[indiceItems++] = item;
+    }
+
+    public float calcularTotal() {
+        float total = 0.0f;
+        for (ItemFactura item : this.items) {
+            if (item == null) {
+                continue;
+            }
+            total += item.calcularImporte();
+        }
+        return total;
+    }
+
+    public String generarDetalle() {
+        StringBuilder sb = new StringBuilder("Factura N°. ");
+        sb.append(folio)
+                .append("\nCliente:  ")
+                .append(this.cliente.getNombre())
+                .append("\t RUT: ")
+                .append(cliente.getRut())
+                .append("\nDescripcion: ")
+                .append(this.descripcion)
+                .append("\n")
+                .append("\n#\tNombre\t$\tCant.\tTotal\n");
+
+        return sb.toString();
     }
 
 }
